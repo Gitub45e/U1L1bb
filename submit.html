@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Story - One Day On Earth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="submit.html">Submit</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="earth-info.html">Earth Info</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>Submit Your Story</h1>
+            <p>Share Your Experience of One Day on Earth</p>
+        </section>
+
+        <!-- Submission Form Section -->
+        <section class="content">
+            <h2>Tell Us Your Story</h2>
+            <p>We want to hear from you! Share your experiences, photographs, videos, or stories from a single day on Earth. Your contribution will help us create a comprehensive snapshot of life on our planet.</p>
+            
+            <form class="submission-form">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="City, Country">
+                </div>
+
+                <div class="form-group">
+                    <label for="submission-type">Type of Submission:</label>
+                    <select id="submission-type" name="submission-type" required>
+                        <option value="">-- Select One --</option>
+                        <option value="story">Written Story</option>
+                        <option value="photo">Photograph</option>
+                        <option value="video">Video</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Title of Your Submission:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description/Story:</label>
+                    <textarea id="description" name="description" rows="8" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="file">Upload File (Optional):</label>
+                    <input type="file" id="file" name="file">
+                </div>
+
+                <div class="form-group">
+                    <label for="terms">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        I agree to share my submission and understand it may be used by the One Day On Earth Project
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Your Story</button>
+            </form>
+        </section>
+
+        <!-- Guidelines Section -->
+        <section class="content">
+            <h2>Submission Guidelines</h2>
+            <ul>
+                <li>Share authentic experiences from a single day on Earth</li>
+                <li>Respect privacy and get permission before including others' photos or stories</li>
+                <li>Keep submissions appropriate for all ages</li>
+                <li>Provide accurate location information</li>
+                <li>Include proper photo/media credits if applicable</li>
+                <li>Maximum file size: 50MB for uploads</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 One Day On Earth Project. All rights reserved.</p>
+        <p>Follow us: <a href="https://www.facebook.com/OneDayOnEarth">Facebook</a> | <a href="https://twitter.com/OneDayOnEarth">Twitter</a> | <a href="https://www.instagram.com/onedayonearth/">Instagram</a></p>
+    </footer>
+</body>
+</html>
