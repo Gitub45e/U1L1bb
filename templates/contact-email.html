@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Contact Notification</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:#111 }
+      .card { border:1px solid #e6eefc; padding:16px; border-radius:8px; background:#fff }
+      .meta { color:#555; font-size:0.9rem }
+      pre { white-space:pre-wrap; word-break:break-word; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>New contact message</h2>
+      <p class="meta">Received at: {{time}}</p>
+      <p><strong>Name:</strong> {{name}}</p>
+      <p><strong>Email:</strong> {{email}}</p>
+      <hr>
+      <h3>Message</h3>
+      <pre>{{message}}</pre>
+    </div>
+  </body>
+</html>

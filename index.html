@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="One Day On Earth — a community project documenting a single day through photos, stories, and local perspectives.">
+    <meta name="theme-color" content="#1e3c72">
+    <!-- Open Graph / Twitter -->
+    <meta property="og:title" content="One Day On Earth">
+    <meta property="og:description" content="A community project documenting a single day through photos and stories.">
+    <meta property="og:image" content="/1st-earth-img.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="One Day On Earth">
+    <meta name="twitter:description" content="A community project documenting a single day through photos and stories.">
     <title>One Day On Earth</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <script src="analytics.js" defer></script>
     <!-- Navigation -->
     <nav class="navbar">
         <ul>
@@ -59,7 +69,27 @@
         <!-- Earth Day Section -->
         <section class="content">
             <h2>Earth Day</h2>
-            <p>Earth Day is an annual event celebrated on April 22nd to demonstrate support for environmental protection. It was first celebrated in 1970 and has since grown into a global movement, with millions of people participating worldwide.</p>
+            <p>Earth Day is an annual event celebrated on April 22nd to demonstrate support for environmental protection. It was first celebrated in 1970 and has since grown into a very global movement, with millions of people participating worldwide.</p>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="content">
+            <h2>Why This Project Matters</h2>
+            <p>Every place on Earth has a story worth sharing. By bringing together images, voices, and experiences from different communities, we create a more complete picture of life on our planet.</p>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <h3>Community</h3>
+                    <p>People from different backgrounds contribute their unique perspectives.</p>
+                </div>
+                <div class="mission-card">
+                    <h3>Awareness</h3>
+                    <p>One day can show how interconnected our lives really are.</p>
+                </div>
+                <div class="mission-card">
+                    <h3>Action</h3>
+                    <p>Stories inspire care for the environment and the people around us.</p>
+                </div>
+            </div>
         </section>
 
         <!-- Get Involved Section -->
@@ -86,11 +116,43 @@
                     </tr>
                     <tr>
                         <td>Learn More</td>
-                        <td>Visit our official website for more information.</td>
-                        <td><a href="https://www.onedayonearth.org/" target="_blank">One Day on Earth</a></td>
+                        <td>Visit our official website for more information if you want to know more about us.</td>
+                        <td><a href="https://www.onedayonearth.org/" target="_blank" rel="noreferrer">One Day on Earth</a></td>
                     </tr>
                 </tbody>
             </table>
+            <div class="cta-panel">
+                <h3>Join the movement</h3>
+                <p>Share your story, explore the gallery, and help document a single day on Earth.</p>
+                <div class="cta-links">
+                    <a href="submit.html">Submit a Story</a>
+                    <a href="gallery.html">Explore Gallery</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Chatbot Section -->
+        <section class="content chatbot-section">
+            <h2>Ask the AI Helper</h2>
+            <p>Need help? Ask about submissions, the gallery, or how to get in touch with people who know more.</p>
+
+            <div class="chatbot-box">
+                <div id="chatbotMessages" class="chatbot-messages" role="log" aria-live="polite" aria-atomic="false">
+                    <div class="chat-message bot">Hi! I can help answer quick questions about this project.</div>
+                </div>
+
+                <div class="chatbot-input-row">
+                    <input id="chatbotInput" type="text" placeholder="Ask a question..." aria-label="Ask the AI assistant a question">
+                    <button id="chatbotSend" type="button" aria-label="Send message">Send</button>
+                </div>
+
+                <noscript>
+                    <div class="chatbot-noscript">
+                        <p>JavaScript is disabled — if you need help, email us at <a href="mailto:info@onedayonearth.org">info@onedayonearth.org</a> or visit the <a href="contact.html">Contact</a> page.</p>
+                    </div>
+                </noscript>
+
+            </div>
         </section>
 
         <!-- Image Credits Section -->
@@ -99,7 +161,7 @@
             <ul>
                 <li>"Earth from Space" by NASA is licensed under <a href="https://creativecommons.org/licenses/by/2.0/">Creative Commons Attribution 2.0 Generic</a></li>
                 <li>Images sourced from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a></li>
-                <li>Additional imagery from <a href="https://www.nasa.gov/">NASA</a></li>
+                <li>Additional imagery sourced from <a href="https://www.nasa.gov/">NASA</a></li>
             </ul>
         </section>
     </main>
@@ -108,5 +170,6 @@
         <p>&copy; 2026 One Day On Earth Project. All rights reserved.</p>
         <p>Follow us: <a href="https://www.facebook.com/OneDayOnEarth">Facebook</a> | <a href="https://twitter.com/OneDayOnEarth">Twitter</a> | <a href="https://www.instagram.com/onedayonearth/">Instagram</a></p>
     </footer>
+    <script src="chatbot.js" defer></script>
 </body>
 </html>

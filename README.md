@@ -1,0 +1,65 @@
+# One Day On Earth — Local dev server and optional AI/contact backend
+
+This repository contains a static site and an optional Node/Express server to provide:
+
+- A server-side proxy to OpenAI for the chatbot (`/api/chat`).
+- A contact endpoint that stores messages in `data/contacts.json` (`/api/contact`).
+
+Important: The backend is optional. The client-side chatbot will work with canned replies if you do not run the server.
+
+Quick start (local):
+
+1. Copy `.env.example` to `.env` and set `OPENAI_API_KEY` if you want AI responses.
+
+2. Install dependencies and run:
+
+```bash
+npm install
+npm start
+```
+
+3. Open http://localhost:3000 in your browser.
+
+Contact storage: messages submitted through `/contact.html` are appended to `data/contacts.json`.
+
+Security notes:
+- Keep your `OPENAI_API_KEY` secret and do not commit it to source control.
+- This server is a minimal example — consider adding rate limiting and authentication before deploying publicly.
+
+Additional optional configuration
+- To enable server-side analytics storage, set `ANALYTICS_ENABLED=true` in `.env`. The client will attempt to POST minimal pageview data to `/api/analytics`.
+- To enable email notifications for new contact messages, configure SMTP settings in `.env`:
+
+```
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_smtp_user
+SMTP_PASS=your_smtp_pass
+SMTP_FROM=notifications@yourdomain.com
+CONTACT_TO=you@yourdomain.com
+```
+
+Notes:
+- Email sending is optional; if SMTP is not configured, contact messages are still saved to `data/contacts.json`.
+- Rate limiting is enabled by default for API endpoints to help protect against abuse.
+
+Admin dashboard
+- Set a secure `ADMIN_TOKEN` in your `.env` (see `.env.example`).
+- Visit `/admin.html` and enter the token to view contacts and analytics. The admin endpoints (`/api/contacts` and `/api/analytics`) require the token as a Bearer token in the `Authorization` header.
+
+Removal of unused files
+- I can remove unused assets (old drafts and extra images) — I will list candidates and delete only after you confirm which to remove.
+
+Security and deployment notes
+- Admin sessions: the server now supports a session login at `POST /api/admin/login` which sets a secure HttpOnly session cookie and returns a CSRF token that the admin UI uses for destructive actions.
+- CSRF protection: state-changing admin requests require the `X-CSRF-Token` header.
+
+SMTP improvements
+- The contact email sender uses a retry/backoff strategy (configurable via `MAIL_RETRY`) to improve reliability when SMTP servers are flaky.
+
+HTTPS & deployment
+- Deploy behind HTTPS in production. If you deploy to a Node host (Heroku, Render, DigitalOcean App Platform), configure `NODE_ENV=production` and set `ADMIN_TOKEN`, `OPENAI_API_KEY` (optional), and SMTP env vars.
+- For simple static-only hosting (GitHub Pages, Netlify), you may not need the Node server — features that depend on the server (chat proxy, contact storage, admin dashboard) will be unavailable.
+
+

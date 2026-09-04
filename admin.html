@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — One Day On Earth</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section class="content">
+      <h2>Admin Dashboard</h2>
+      <p>Enter the admin token to view contacts and analytics.</p>
+      <div class="form-group">
+        <label for="admintoken">Admin token</label>
+        <input id="admintoken" type="password">
+        <button id="btnLogin" class="submit-btn">Load Data</button>
+      </div>
+
+      <div id="adminArea" style="display:none;">
+        <h3>Contacts</h3>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <button id="downloadContacts" class="submit-btn">Download Contacts CSV</button>
+          <button id="clearContacts" class="submit-btn">Clear Contacts (local only)</button>
+        </div>
+        <pre id="contactsPre" style="max-height:300px;overflow:auto;background:#fff;padding:1rem;border-radius:6px;border:1px solid #e6eefc"></pre>
+
+        <h3>Analytics (last 200)</h3>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <button id="downloadAnalytics" class="submit-btn">Download Analytics CSV</button>
+        </div>
+        <pre id="analyticsPre" style="max-height:300px;overflow:auto;background:#fff;padding:1rem;border-radius:6px;border:1px solid #e6eefc"></pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('btnLogin').addEventListener('click', async function () {
+      const token = document.getElementById('admintoken').value.trim();
+      if (!token) return alert('Enter token');
+      let csrf = null;
+      try {
+        const r = await fetch('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token }), credentials: 'include' });
+        const jr = await r.json();
+        if (!r.ok) return alert('Login failed: ' + (jr.error || JSON.stringify(jr)));
+        csrf = jr.csrf;
+      } catch (e) {
+        return alert('Login error: ' + e.message);
+      }
+      const headers = { Authorization: 'Bearer ' + token };
+      let contactsData = null;
+      let analyticsData = null;
+      try {
+        const c = await fetch('/api/contacts', { headers, credentials: 'include' });
+        contactsData = await c.json();
+        document.getElementById('contactsPre').textContent = JSON.stringify(contactsData, null, 2);
+      } catch (e) {
+        document.getElementById('contactsPre').textContent = 'Failed to load contacts: ' + e.message;
+      }
+      try {
+        const a = await fetch('/api/analytics', { headers, credentials: 'include' });
+        analyticsData = await a.json();
+        document.getElementById('analyticsPre').textContent = JSON.stringify(analyticsData, null, 2);
+      } catch (e) {
+        document.getElementById('analyticsPre').textContent = 'Failed to load analytics: ' + e.message;
+      }
+      document.getElementById('adminArea').style.display = 'block';
+
+      function toCsv(arr, headers) {
+        if (!Array.isArray(arr)) return '';
+        const esc = (v) => String(v ?? '').replace(/"/g, '""');
+        const rows = [headers.join(',')];
+        for (const r of arr) {
+          const row = headers.map(h => '"' + esc(r[h]) + '"').join(',');
+          rows.push(row);
+        }
+        return rows.join('\n');
+      }
+
+      document.getElementById('downloadContacts').addEventListener('click', function () {
+        if (!contactsData || !contactsData.contacts) return alert('No contacts to download');
+        const headers = ['name', 'email', 'message', 'time'];
+        const csv = toCsv(contactsData.contacts, headers);
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'contacts.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      document.getElementById('downloadAnalytics').addEventListener('click', function () {
+        if (!analyticsData || !analyticsData.analytics) return alert('No analytics to download');
+        const headers = ['path', 'ts', 'ua'];
+        const csv = toCsv(analyticsData.analytics, headers);
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'analytics.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      document.getElementById('clearContacts').addEventListener('click', function () {
+        if (!confirm('This will clear contacts.json on the server (admin only). Continue?')) return;
+        fetch('/api/contacts', { method: 'DELETE', headers: { 'X-CSRF-Token': csrf }, credentials: 'include' }).then(r => {
+          if (r.ok) {
+            document.getElementById('contactsPre').textContent = 'Cleared contacts.';
+          } else {
+            r.text().then(t => alert('Failed: ' + t));
+          }
+        }).catch(e => alert('Error: ' + e.message));
+      });
+    });
+  </script>
+</body>
+</html>
