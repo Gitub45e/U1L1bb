@@ -1,3 +1,56 @@
+# OneDayOneEarth — Local development
+
+Quick steps to run the site locally (Node.js + optional server APIs).
+
+Prerequisites
+- Node.js 16+ and npm installed
+
+Run locally
+1. Install dependencies:
+
+```powershell
+cd "c:\Users\HAMILCOR000\Devlopment\WebDev\U1L1"
+npm install
+```
+
+2. Copy the example environment file and fill values:
+
+```powershell
+copy .env.example .env
+# edit .env with your editor and provide any needed keys (OPENAI_API_KEY, SMTP_*, ADMIN_TOKEN)
+```
+
+3. Start the server:
+
+```powershell
+npm start
+# or
+node server.js
+```
+
+4. Open the site in your browser:
+
+http://localhost:3000
+
+Run without installing dependencies
+- If you do not need the Node APIs and just want to preview the static site, run the included lightweight server:
+
+```powershell
+node server_static.js
+```
+
+This uses only Node built-ins and does not require `npm install`.
+
+Notes
+- Static files (HTML/CSS/JS) are served from the project root by the Express server in `server.js`.
+- To enable the chat proxy, set `OPENAI_API_KEY` in your `.env`.
+- To receive contact emails, set SMTP variables and `CONTACT_TO`.
+- For admin APIs, set a strong `ADMIN_TOKEN`.
+
+Static deployment
+- If you only need static hosting (no server-side APIs), you can deploy the site files (`index.html`, `style.css`, `images/`, etc.) to GitHub Pages, Netlify, or Vercel.
+
+If you want, I can attempt `npm install` and `npm start` here — say "run installs" and I'll try again (may require permission/terminal access). 
 # One Day On Earth — Local dev server and optional AI/contact backend
 
 This repository contains a static site and an optional Node/Express server to provide:

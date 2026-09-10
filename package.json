@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "serve-static": "node server_static.js",
     "lint": "eslint . --ext .js"
   },
   "dependencies": {
