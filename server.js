@@ -207,7 +207,9 @@ function makeId(len = 32) {
 // Create a login endpoint for admin that sets a secure HttpOnly session cookie and returns a CSRF token
 app.post('/api/admin/login', express.json(), (req, res) => {
   const token = (req.body && req.body.token) || '';
-  if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) return res.status(401).json({ error: 'unauthorized' });
+  if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) {
+    return res.status(401).json({ error: 'unauthorized' });
+  }
   const sessionId = makeId(16);
   const csrf = makeId(12);
   const expires = Date.now() + 1000 * 60 * 60; // 1 hour
